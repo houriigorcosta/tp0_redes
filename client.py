@@ -4,6 +4,8 @@ import socket               # Import socket module
 import sys
 
 
+BUFFER_LEN=1024
+
 host=sys.argv[1]
 port=int(sys.argv[2])
 comprimento_msg=sys.argv[3]
@@ -20,7 +22,7 @@ s.connect((host, port))
 pacote="{};{};{}".format(len(msg),msg,cifra)
 print pacote
 s.send(pacote)
-a=s.recv(1024)
+a=s.recv(BUFFER_LEN)
 print a
 print "termina programa"
 s.close()                    # Close the socket when done

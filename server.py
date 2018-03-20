@@ -3,6 +3,7 @@ import socket
 import threading
 import sys
 
+BUFFER_LEN=1024
 class Servidor():
 	"""docstring for Servidor"""
 	def __init__(self,port=5555):
@@ -19,7 +20,7 @@ class Servidor():
 	
 	def lida_cliente(self,c,addr):
 		print 'Got connection from', addr
-		pacote=c.recv(1024)
+		pacote=c.recv(BUFFER_LEN)
 		print pacote
 		pacote=pacote.split(";")
 		print pacote
