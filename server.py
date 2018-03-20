@@ -3,10 +3,13 @@ import socket
 import threading
 import sys
 
-BUFFER_LEN=1024
+TAMANHO_PEDACOS=100
+BUFFER_LEN=(5+1+1+2+TAMANHO_PEDACOS)
+TERMINADOR="1;>;0"
+
 class Servidor():
 	"""docstring for Servidor"""
-	def __init__(self,port=5555):
+	def __init__(self,port=55555):
 		#super(Servidor, self).__init__()
 		self.s = socket.socket()
 		self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -19,15 +22,20 @@ class Servidor():
 			t.run()
 	
 	def lida_cliente(self,c,addr):
-		print 'Got connection from', addr
-		pacote=c.recv(BUFFER_LEN)
-		print pacote
-		pacote=pacote.split(";")
-		print pacote
-		pacote=self.decodifica_msg(pacote)
-		print pacote
-		c.send(pacote)
+		pacote=""
+		#print 'Got connection from', addr
+		msg_decodificada=""
+		while pacote !=TERMINADOR:
+			pacote=c.recv(BUFFER_LEN)
+			if pacote !=TERMINADOR:
+				#print pacote
+				pacote=pacote.split(";")
+				#print pacote
+				pacote=self.decodifica_msg(pacote)
+				msg_decodificada+=pacote
+				c.send(pacote)
 		c.close()# Close the connection
+		print msg_decodificada
 
 	def decodifica_msg(self,pacote):
 		#tamanho>=<msg>=<cifra
@@ -43,7 +51,10 @@ class Servidor():
 
 
 if __name__=='__main__':
-	print sys.argv[1]
-	S=Servidor(int(sys.argv[1]))
+	#print sys.argv[1]
+	if len(sys.argv)!=2:
+		print "A entrada deve ser: python server.py porta"
+	else:
+		S=Servidor(int(sys.argv[1]))
 
 
