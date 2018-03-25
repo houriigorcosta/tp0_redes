@@ -10,7 +10,7 @@ TERMINADOR="1;>;0"								#terminador, que sinaliza fim de comunicação
 
 class Servidor():
 	"""Classe que modela o servidor do trabalho"""
-	def __init__(self,port=55555):
+	def __init__(self,port=5555):
 		"""Construtor do trabalho, esse metodo rodará até o fechamento do servidor pelo usuário
 		 por CTRL+C"""
 		self.s = socket.socket()				#Abre Socket e trata erro de address already in use
