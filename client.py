@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+#!/usr/bin/env python3
 import socket				 					#importa modulo de socket
 import sys										#importa modulo de argv
 
@@ -23,6 +23,7 @@ cifra=int(sys.argv[5])%26						#obtem a cifra do 5 argumento, o resto da divisã
 												#serve para garantir que a cifra esteja dentro do alfabeto
 
 s = socket.socket()         					#cria socket para comunicação com o servidor
+s.settimeout(15.0)
 #print host
 host = socket.gethostbyname(host)				#obtem nome de maquina doip do servidor				
 #print (host, port)

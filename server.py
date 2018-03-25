@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 import socket				 					#importa modulo de socket
 import sys										#importa modulo de argv
 import threading								#importa modulo de threading
@@ -18,6 +19,7 @@ class Servidor():
 		self.s.listen(5)						#prepara conexões vindoras
 		while True:
 			c, addr = self.s.accept()     		#espera conexão com o cliente
+			c.settimeout(15.0)
 			t=threading.Thread(target=			#prepra thread no metodo lida_cliente
 							self.lida_cliente,
 							args=(c,addr))
